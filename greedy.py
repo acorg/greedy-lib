@@ -90,7 +90,7 @@ def coefplot(formula, data, fontsize=5):
     plt.legend(handles=[red_patch, blue_patch, green_patch], loc=2)
     plt.yticks(range(len(params.index)), params.index)
     ax.set_ylim([-1, len(params)])
-    ax.set_yticklabels(["\n".join(name.split(":")) for name in params.index],
+    ax.set_yticklabels(params.index,
                        fontsize=fontsize)
     ax.set_ylabel("Substitutions")
     ax.set_xlabel("Coefficients")
@@ -118,7 +118,7 @@ def collinify(data):
             if not np.logical_and(data[predictor] != np.zeros(len(data.index)),
                                   data[col] != data[predictor]).any():
                 collinears.append(col)
-        df["+".join(sorted(collinears))] = data[predictor]
+        df["_".join(sorted(collinears))] = data[predictor]
     return df
 
 candidates = []
