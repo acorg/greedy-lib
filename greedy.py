@@ -27,6 +27,7 @@ def coefplot(formula, data, fontsize=5):
         formula = patsy-style formula for regression model
         data = pandas dataframe with columns for the variables in the formula
         fontsize = 5 by default
+        returns figure, axes
     """
     lm = smf.ols(formula, data=data).fit()
     lm0 = smf.ols(formula + "+ 0", data=data).fit()
@@ -106,11 +107,12 @@ def coefplot(formula, data, fontsize=5):
     file = open("truncreg_summary.txt", "w")
     file.write(str(r("summ")))
     file.close()
+    return fig, ax
 
 
 def collinify(data):
     "data = pandas dataframe with individual data.columns in columns"
-    "value = new pandas dataframe with culled collinear columns"
+    "returns new pandas dataframe with culled collinear columns"
     df = pd.DataFrame()
     for predictor in data.columns:
         collinears = []
@@ -137,7 +139,7 @@ def get_bic(candidate, data):
 def greedy(singles, data):
     "singles = list of individual candidates for parameters in linear model"
     "data = pandas dataframe with columns AGDIST and singles"
-    "value = None"
+    "returns useful predictors"
     global candidates, predictors
     #  First we check if we need to continue from where we left off.
     if os.path.isfile("predictors/predictors_00.csv"):
@@ -198,13 +200,13 @@ def greedy(singles, data):
     file = open("predictors.csv", "r")
     predictors = file.read().split("\n")
     file.close()
-    return None
+    return predictors
 
 
 def greedyvis(predictors, data):
     "predictors = list of successively added predictors"
     "data = pandas dataframe with predictors in columns"
-    "value = None"
+    "returns figure, leftaxes, rightaxes"
     bics = []
     coeffs = []
     for i in range(len(predictors)):
@@ -230,13 +232,14 @@ def greedyvis(predictors, data):
     ax2.plot(range(len(coeffs)), coeffs, color="r")
     ax2.set_ylabel("Coefficient in linear regression", color="r")
     fig.savefig("coefvis.png")
-    return None
+    return fig, ax1, ax2
 
 
 def coefvis(predictor, model):
     """predictor = parameter whose estimate you want to understand
     model = linear model object from statsmodels.formula.api.ols
-    Saves csvs and heatmap pngs in a folder"""
+    saves csvs and heatmap pngs in a folder
+    returns figure, axes"""
     results = model.fit()
     print results.params
     coeffs = results.params
@@ -309,6 +312,7 @@ def coefvis(predictor, model):
     plt.title("%s=%.1f" % (predictor, coeffs[predictor]))
     fig.subplots_adjust(bottom=0.2)
     fig.savefig(predictor + "/" + predictor + ".png", dpi=500)
+    return fig, ax
 
 
 if __name__ == "__main__":
