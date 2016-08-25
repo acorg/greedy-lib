@@ -111,8 +111,8 @@ def coefplot(formula, data, fontsize=5):
 
 
 def collinify(data):
-    "data = pandas dataframe with individual data.columns in columns"
-    "returns new pandas dataframe with culled collinear columns"
+    """data = pandas dataframe with individual data.columns in columns
+    returns new pandas dataframe with culled collinear columns"""
     df = pd.DataFrame()
     for predictor in data.columns:
         collinears = []
@@ -137,9 +137,9 @@ def get_bic(candidate, data):
 
 
 def greedy(singles, data):
-    "singles = list of individual candidates for parameters in linear model"
-    "data = pandas dataframe with columns AGDIST and singles"
-    "returns useful predictors"
+    """singles = list of individual candidates for parameters in linear model
+    data = pandas dataframe with columns AGDIST and singles
+    returns useful predictors"""
     global candidates, predictors
     #  First we check if we need to continue from where we left off.
     if os.path.isfile("predictors/predictors_00.csv"):
@@ -204,9 +204,9 @@ def greedy(singles, data):
 
 
 def greedyvis(predictors, data):
-    "predictors = list of successively added predictors"
-    "data = pandas dataframe with predictors in columns"
-    "returns figure, leftaxes, rightaxes"
+    """predictors = list of successively added predictors
+    data = pandas dataframe with predictors in columns
+    returns figure, leftaxes, rightaxes"""
     bics = []
     coeffs = []
     for i in range(len(predictors)):
