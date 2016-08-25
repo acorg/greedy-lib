@@ -235,7 +235,7 @@ def greedyvis(predictors, data):
     return fig, ax1, ax2
 
 
-def coefvis(predictor, model):
+def coefvis(predictor, model, fontsize=16*2**-(length/8)):
     """predictor = parameter whose estimate you want to understand
     model = linear model object from statsmodels.formula.api.ols
     saves csvs and heatmap pngs in a folder
@@ -281,18 +281,18 @@ def coefvis(predictor, model):
             plt.text(x + 0.5, y + 0.5, '%.1f' % np_array[y, x],
                      horizontalalignment='center',
                      verticalalignment='center',
-                     fontsize=24*2**-(length/8)
+                     fontsize=fontsize
                      )
     for y in range(np_array.shape[0]):
         plt.text(-0.5, y + 0.5, '%.1f' % array.index[y],
                  horizontalalignment='center',
                  verticalalignment='center',
-                 fontsize=24*2**-(length/8))
+                 fontsize=fontsize)
     for x in range(np_array.shape[1]):
         plt.text(x + 0.5, -1, '%s' % array.columns[x],
                  horizontalalignment='center',
                  verticalalignment='center',
-                 fontsize=24*2**-(length/8))
+                 fontsize=fontsize)
     plt.tick_params(
                     axis='x',
                     which='both',
