@@ -79,7 +79,6 @@ def coefplot(formula, data, fontsize=5):
         x = params.truncreg[sub]
         for perm in list(itertools.permutations(sub.split(":"))):
             s = ":".join(perm)
-            print s
             try:
                 se = truncreg_bse.loc[s]
                 ax.plot([x - se, x + se], [y, y], color="green")
@@ -171,8 +170,8 @@ def greedy(singles, data):
         loop = 0
     #  Now we run the greedy algorithm using multithreading
     while not os.path.isfile("predictors.csv"):
-        print "%d predictors, %d candidates" % (len(predictors),
-                                                len(candidates))
+        print ("%d predictors, %d candidates" % (len(predictors),
+                                                len(candidates)))
         best_candidate = []
         bics = Parallel(n_jobs=num_cores)(delayed(get_bic)(candidate, data)
                                           for candidate in candidates)
@@ -241,7 +240,6 @@ def coefvis(predictor, model, fontsize=4):
     saves csvs and heatmap pngs in a folder
     returns figure, axes"""
     results = model.fit()
-    print results.params
     coeffs = results.params
     predictors = model.exog_names
     endog = model.endog.reshape((-1, 1))
