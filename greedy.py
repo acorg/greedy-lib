@@ -316,10 +316,11 @@ def coefvis(predictor, model, fontsize=4):
 
 
 if __name__ == "__main__":
+    predictors = ["KN145", "EK156", "LS157:NS193", "GK135", "DE190:IT214", "EG158_KR050", "LQ226"]
     data = pd.read_csv("culled.csv", sep=" ")
     data = data.drop("Unnamed: 75", axis=1)
-    print collinify(data).columns
+    data= collinify(data)
     model = smf.ols("AGDIST ~ %s" %
-                    ("+".join([x for x in data.columns if x != "AGDIST"])),
+                    ("+".join(predictors)),
                     data=data)
-    coefvis("QR197", model)
+    coefvis("EK156", model)
