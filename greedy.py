@@ -235,7 +235,7 @@ def greedyvis(predictors, data):
     return fig, ax1, ax2
 
 
-def coefvis(predictor, model, fontsize=16*2**-(length/8)):
+def coefvis(predictor, model, fontsize=4):
     """predictor = parameter whose estimate you want to understand
     model = linear model object from statsmodels.formula.api.ols
     saves csvs and heatmap pngs in a folder
