@@ -203,8 +203,6 @@ def greedy(singles, data):
                 if len(i) != 5:
                     output_can2.append(i)
             candidates = output_can2
-            best_bic = smf.ols(formula="AGDIST ~ %s " % ('+'.join(predictors)),
-                           data=data).fit().bic
             while not os.path.isfile("predictors.csv"):
                 print ("%d predictors, %d candidates" % (len(predictors),
                                                 len(candidates)))
