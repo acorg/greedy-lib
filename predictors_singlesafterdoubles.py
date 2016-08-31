@@ -31,7 +31,12 @@ for item in predictors:
     elif len(item) == 5:
         predictors_new.append(item)
 
-predictors = predictors_new
+intermediate_predictors = []
+for item in predictors_new:
+    if item not in intermediate_predictors:
+        intermediate_predictors.append(item)
+
+predictors = intermediate_predictors
 
 possible_predictors = ['AT131', 'AT138', 'AV272', 'DE135', 'DE158', 'DE188', 'DE190', 'DG053', 
     'DG078', 'DG124', 'DG172', 'DG275', 'DN031', 'DN053', 'DN133', 'DN216', 'EG135', 
